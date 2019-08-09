@@ -11,28 +11,28 @@ import dislike from '../assets/dislike.png';
 import itsamatch from '../assets/itsamatch.png';
 
 
-
 export default function Main({ navigation }) {
   const id = navigation.getParam('user');
   const [users, setUsers] = useState([]);
   const [matchDev, setMatchDev] = useState(null);
 
-
   useEffect(() => {
-    async function loadUser() {
+    async function loadUsers() {
       const response = await api.get('/devs', {
         headers: {
-          user: id
+          user: id,
         }
       })
+
       setUsers(response.data);
     }
-    loadUser();
+
+    loadUsers();
   }, [id]);
 
   useEffect(() => {
     const socket = io('http://10.0.2.2:3333', {
-      query: { user: id },
+      query: { user: id }
     });
 
     socket.on('match', dev => {
@@ -52,8 +52,8 @@ export default function Main({ navigation }) {
   }
 
   async function handleDislike() {
-
     const [user, ...rest] = users;
+
     await api.post(`devs/${user._id}/dislikes`, null, {
       headers: { user: id },
     })
@@ -72,36 +72,24 @@ export default function Main({ navigation }) {
       <TouchableOpacity onPress={handleLogout}>
         <Image style={styles.logo} source={logo} />
       </TouchableOpacity>
-      {(matchDev == null ? (
 
-        <View style={styles.cardsContainer}>
+      <View style={styles.cardsContainer}>
+        {users.length === 0
+          ? <Text style={styles.empty}>Acabou :(</Text>
+          : (
+            users.map((user, index) => (
+              <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
+                <Image style={styles.avatar} source={{ uri: user.avatar }} />
+                <View style={styles.footer}>
+                  <Text style={styles.name}>{user.name}</Text>
+                  <Text style={styles.bio} numberOfLines={3}>{useEffect.bio}</Text>
+                </View>
+              </View>
+            ))
+          )}
+      </View>
 
-          <View style={[styles.cardsContainer, { zIndex: 3 }]}>
-            {users.length === 0
-              ? <Text style={styles.empty}>Acabou :(</Text>
-              : (
-                users.map((user, index) => (
-                  <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
-                    <Image style={styles.avatar} source={{ uri: user.avatar }} />
-                    <View style={styles.footer}>
-                      <Text style={styles.name}>{user.name}</Text>
-                      <Text style={styles.bio} numberOfLines={3}>{user.bio}</Text>
-                    </View>
-                  </View>
-                ))
-              )
-            }
-          </View>
-
-
-        </View>
-
-      ) : (
-        <Text>{matchDev.name}</Text>
-      ))}
-
-
-      {users.length > 0 && (matchDev == null ? (
+      {users.length > 0 && (
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button} onPress={handleDislike}>
             <Image source={dislike} />
@@ -110,23 +98,21 @@ export default function Main({ navigation }) {
             <Image source={like} />
           </TouchableOpacity>
         </View>
-      ) : (<Text>{matchDev.name}</Text>)
       )}
 
-      {matchDev && (
+      { matchDev && (
         <View style={styles.matchContainer}>
           <Image source={itsamatch} />
           <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }} />
+          
           <Text style={styles.matchName}>{matchDev.name}</Text>
           <Text style={styles.matchBio}>{matchDev.bio}</Text>
+
           <TouchableOpacity onPress={() => setMatchDev(null)}>
             <Text style={styles.closeMatch}>Fechar</Text>
           </TouchableOpacity>
         </View>
       )}
-
-
-
     </SafeAreaView>
   );
 }
@@ -137,6 +123,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+
+  logo: {
+    marginTop: 30,
+  },
+
+  empty: {
+    alignSelf: 'center',
+    color: '#999',
+    fontSize: 24,
+    fontWeight: 'bold'
   },
 
   cardsContainer: {
@@ -170,23 +167,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
   },
+
   name: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333'
   },
+
   bio: {
     fontSize: 14,
     color: '#999',
     marginTop: 5,
-    lineHeight: 18,
+    lineHeight: 18
   },
-  logo: {
-    marginTop: 30,
-  },
+
   buttonsContainer: {
     flexDirection: 'row',
     marginBottom: 30,
+    zIndex:-1
   },
 
   button: {
@@ -199,18 +197,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     elevation: 2,
   },
-  empty: {
-    alignSelf: 'center',
-    color: '#999',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
+
   matchContainer: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.8)',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    zIndex:999,
   },
+
   matchAvatar: {
     width: 160,
     height: 160,
@@ -218,21 +213,23 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#FFF',
     marginVertical: 30,
-
   },
+
   matchName: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#FFF'
   },
+
   matchBio: {
     marginTop: 10,
     fontSize: 16,
     color: 'rgba(255,255,255,0.8)',
     lineHeight: 24,
     textAlign: 'center',
-    paddingHorizontal: 30,
+    paddingHorizontal: 30
   },
+
   closeMatch: {
     fontSize: 16,
     color: 'rgba(255,255,255,0.8)',
@@ -240,5 +237,4 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontWeight: 'bold'
   },
-
-});
+})
