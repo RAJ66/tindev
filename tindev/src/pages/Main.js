@@ -72,28 +72,36 @@ export default function Main({ navigation }) {
       <TouchableOpacity onPress={handleLogout}>
         <Image style={styles.logo} source={logo} />
       </TouchableOpacity>
-      <View style={styles.cardsContainer}>
+      {(matchDev == null ? (
 
-        <View style={[styles.cardsContainer, { zIndex: 3 }]}>
-          {users.length === 0
-            ? <Text style={styles.empty}>Acabou :(</Text>
-            : (
-              users.map((user, index) => (
-                <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
-                  <Image style={styles.avatar} source={{ uri: user.avatar }} />
-                  <View style={styles.footer}>
-                    <Text style={styles.name}>{user.name}</Text>
-                    <Text style={styles.bio} numberOfLines={3}>{user.bio}</Text>
+        <View style={styles.cardsContainer}>
+
+          <View style={[styles.cardsContainer, { zIndex: 3 }]}>
+            {users.length === 0
+              ? <Text style={styles.empty}>Acabou :(</Text>
+              : (
+                users.map((user, index) => (
+                  <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
+                    <Image style={styles.avatar} source={{ uri: user.avatar }} />
+                    <View style={styles.footer}>
+                      <Text style={styles.name}>{user.name}</Text>
+                      <Text style={styles.bio} numberOfLines={3}>{user.bio}</Text>
+                    </View>
                   </View>
-                </View>
-              ))
-            )
-          }
+                ))
+              )
+            }
+          </View>
+
+
         </View>
 
+      ) : (
+        <Text>{matchDev.name}</Text>
+      ))}
 
-      </View>
-      {users.length > 0 && (
+
+      {users.length > 0 && (matchDev == null ? (
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.button} onPress={handleDislike}>
             <Image source={dislike} />
@@ -102,6 +110,7 @@ export default function Main({ navigation }) {
             <Image source={like} />
           </TouchableOpacity>
         </View>
+      ) : (<Text>{matchDev.name}</Text>)
       )}
 
       {matchDev && (
@@ -110,11 +119,14 @@ export default function Main({ navigation }) {
           <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }} />
           <Text style={styles.matchName}>{matchDev.name}</Text>
           <Text style={styles.matchBio}>{matchDev.bio}</Text>
-          <TouchableOpacity onPress={()=>setMatchDev(null)}>
+          <TouchableOpacity onPress={() => setMatchDev(null)}>
             <Text style={styles.closeMatch}>Fechar</Text>
           </TouchableOpacity>
         </View>
       )}
+
+
+
     </SafeAreaView>
   );
 }
