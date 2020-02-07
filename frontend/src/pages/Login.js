@@ -20,21 +20,16 @@ export default function Login({ history }) {
   }
 
   return (
-    <>
-      <LoginContainer>
-        <h3>teste</h3>
-      </LoginContainer>
-      <div className="login-container">
-        <form onSubmit={handleSubmit}>
-          <img src={logo} alt="Tindev" />
-          <input
-            placeholder="Digite se usuario do GitHub"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    </>
+    <LoginContainer>
+      <form onSubmit={handleSubmit}>
+        <img src={logo} alt="Tindev" />
+        <input
+          placeholder="Digite se usuario do GitHub"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </LoginContainer>
   );
 }
