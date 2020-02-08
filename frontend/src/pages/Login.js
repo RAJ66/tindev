@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./Login.css";
 
 import api from "../services/api";
 
 import logo from "../assets/logo.svg";
 
-import { LoginContainer } from "./styles.js";
+import { Button, LoginContainer, Form, Input } from "./styles.js";
 
 export default function Login({ history }) {
   const [username, setUsername] = useState("");
@@ -21,15 +20,15 @@ export default function Login({ history }) {
 
   return (
     <LoginContainer>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <img src={logo} alt="Tindev" />
-        <input
+        <Input
           placeholder="Digite se usuario do GitHub"
           value={username}
           onChange={e => setUsername(e.target.value)}
         />
-        <button type="submit">Enviar</button>
-      </form>
+        <Button type="submit">Enviar</Button>
+      </Form>
     </LoginContainer>
   );
 }
