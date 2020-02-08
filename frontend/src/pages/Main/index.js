@@ -1,7 +1,23 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { Link } from "react-router-dom";
-import "./Main.css";
+
+import {
+  MainContainer,
+  List,
+  Line,
+  Image,
+  Footer,
+  Strong,
+  Paragraph,
+  Buttons,
+  Button,
+  Empty,
+  MatchContainer,
+  Avatar,
+  MatchStrong,
+  MatchParagraph
+} from "./styles.js";
 
 import api from "../../services/api";
 
@@ -53,46 +69,46 @@ export default function Main({ match }) {
   }
 
   return (
-    <div className="main-container">
+    <MainContainer>
       <Link to="/">
         <img src={logo} alt="Tindev" />
       </Link>
       {users.length > 0 ? (
-        <ul>
+        <List>
           {users.map(user => (
-            <li key={user._id}>
-              <img src={user.avatar} alt="user.name" />
-              <footer>
-                <strong>{user.name}</strong>
-                <p>{user.bio}</p>
-              </footer>
-              <div className="buttons">
-                <button type="button" onClick={() => handleDislike(user._id)}>
+            <Line key={user._id}>
+              <Image src={user.avatar} alt="user.name" />
+              <Footer>
+                <Strong>{user.name}</Strong>
+                <Paragraph>{user.bio}</Paragraph>
+              </Footer>
+              <Buttons>
+                <Button type="button" onClick={() => handleDislike(user._id)}>
                   <img src={dislike} alt="Dislike" />
-                </button>
-                <button type="button" onClick={() => handleLike(user._id)}>
+                </Button>
+                <Button type="button" onClick={() => handleLike(user._id)}>
                   <img src={like} alt="Like" />
-                </button>
-              </div>
-            </li>
+                </Button>
+              </Buttons>
+            </Line>
           ))}
-        </ul>
+        </List>
       ) : (
-        <div className="empty">Acabou :(</div>
+        <Empty>Acabou :(</Empty>
       )}
 
       {matchDev && (
-        <div className="match-container">
+        <MatchContainer>
           <img src={itsamatch} alt="It a match" />
-          <img className="avatar" src={matchDev.avatar} />
-          <strong>{matchDev.name}</strong>
-          <p>{matchDev.bio}</p>
+          <Avatar className="avatar" src={matchDev.avatar} />
+          <MatchStrong>{matchDev.name}</MatchStrong>
+          <MatchParagraph>{matchDev.bio}</MatchParagraph>
 
           <button type="button" onClick={() => setMatchDev(null)}>
             Fechar
           </button>
-        </div>
+        </MatchContainer>
       )}
-    </div>
+    </MainContainer>
   );
 }
