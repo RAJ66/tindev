@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import api from "../services/api";
+import api from "../../services/api";
 
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 
 import { Button, LoginContainer, Form, Input } from "./styles.js";
 

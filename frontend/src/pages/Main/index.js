@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import { Link } from 'react-router-dom';
-import './Main.css';
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { Link } from "react-router-dom";
+import "./Main.css";
 
-import api from '../services/api';
+import api from "../../services/api";
 
-import logo from '../assets/logo.svg';
-import dislike from '../assets/dislike.svg';
-import like from '../assets/like.svg';
-import itsamatch from '../assets/itsamatch.png'
+import logo from "../../assets/logo.svg";
+import dislike from "../../assets/dislike.svg";
+import like from "../../assets/like.svg";
+import itsamatch from "../../assets/itsamatch.png";
 
 export default function Main({ match }) {
   const [users, setUsers] = useState([]);
@@ -16,54 +16,50 @@ export default function Main({ match }) {
 
   useEffect(() => {
     async function loadUser() {
-      const response = await api.get('/devs', {
+      const response = await api.get("/devs", {
         headers: {
           user: match.params.id
         }
-      })
+      });
       setUsers(response.data);
     }
     loadUser();
   }, [match.params.id]);
 
   useEffect(() => {
-    const socket = io('http://localhost:3333',{
-      query:{user:match.params.id},
+    const socket = io("http://localhost:3333", {
+      query: { user: match.params.id }
     });
 
-    socket.on('match',dev =>{
+    socket.on("match", dev => {
       setMatchDev(dev);
-    })
-
+    });
   }, [match.params.id]);
 
   async function handleLike(id) {
     await api.post(`devs/${id}/likes`, null, {
-      headers: { user: match.params.id },
-    })
+      headers: { user: match.params.id }
+    });
 
     setUsers(users.filter(user => user._id !== id));
   }
 
   async function handleDislike(id) {
     await api.post(`devs/${id}/dislikes`, null, {
-      headers: { user: match.params.id },
-    })
+      headers: { user: match.params.id }
+    });
 
     setUsers(users.filter(user => user._id !== id));
   }
 
-
-
   return (
     <div className="main-container">
-      <Link to="/" >
+      <Link to="/">
         <img src={logo} alt="Tindev" />
       </Link>
       {users.length > 0 ? (
         <ul>
           {users.map(user => (
-
             <li key={user._id}>
               <img src={user.avatar} alt="user.name" />
               <footer>
@@ -80,22 +76,23 @@ export default function Main({ match }) {
               </div>
             </li>
           ))}
-
         </ul>
       ) : (
-          <div className="empty">Acabou :(</div>
-        )}
+        <div className="empty">Acabou :(</div>
+      )}
 
-        {matchDev&&(
-          <div className="match-container">
-            <img src={itsamatch} alt="It a match" />
-            <img className="avatar" src={matchDev.avatar} />
+      {matchDev && (
+        <div className="match-container">
+          <img src={itsamatch} alt="It a match" />
+          <img className="avatar" src={matchDev.avatar} />
           <strong>{matchDev.name}</strong>
           <p>{matchDev.bio}</p>
 
-          <button type='button' onClick={()=>setMatchDev(null)}>Fechar</button>
-          </div>
-        )}
+          <button type="button" onClick={() => setMatchDev(null)}>
+            Fechar
+          </button>
+        </div>
+      )}
     </div>
   );
 }
