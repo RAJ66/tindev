@@ -13,7 +13,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #f5f5f5;
+    background: ${props => props.theme.colors.background};
   }
 
   body, input, button {
