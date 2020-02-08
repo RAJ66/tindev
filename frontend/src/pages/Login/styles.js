@@ -1,39 +1,40 @@
-.login-container {
+import styled from "styled-components";
+
+export const LoginContainer = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+`;
 
-.login-container form{
+export const Form = styled.form`
   width: 100%;
   max-width: 300px;
   display: flex;
   flex-direction: column;
-}
+`;
 
-.login-container form input{
+export const Input = styled.input`
   margin-top: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
   height: 48px;
   padding: 0 20px;
-  font-size:16px;
+  font-size: 16px;
   color: #666;
-}
+  ::placeholder {
+    color: #999;
+  }
+`;
 
-.login-container form input::placeholder{
-  color: #999
-}
-
-.login-container form button{
+export const Button = styled.button`
   margin-top: 10px;
   border: 0px;
   border-radius: 4px;
   height: 48px;
   font-size: 16px;
-  background: #DF4723;
+  background: #df4723;
   font-weight: bold;
-  color: #FFF;
+  color: #fff;
   cursor: pointer;
-}
+`;
