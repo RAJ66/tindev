@@ -20,7 +20,7 @@
 
 <p>This project was made for study porpuses only.</p>
 <p>Social network for developers</p>
-<p>#Rocketseat Week Omnistack 9.0</p>
+<p>#Rocketseat Week Omnistack 8.0</p>
 
 ## 💻Stack
 
