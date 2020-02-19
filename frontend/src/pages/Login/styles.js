@@ -38,3 +38,9 @@ export const Button = styled.button`
   color: #fff;
   cursor: pointer;
 `;
+export const DivSiwtch = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;

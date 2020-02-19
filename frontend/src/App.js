@@ -5,12 +5,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/global";
 import light from "./styles/themes/light";
 function App() {
-  return (
-    <ThemeProvider theme={light}>
-      <GlobalStyle />
-      <Routes />
-    </ThemeProvider>
-  );
+  return <Routes />;
 }
 
 export default App;
