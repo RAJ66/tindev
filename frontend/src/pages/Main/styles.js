@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ThemeContext } from "styled-components";
 
 export const MainContainer = styled.div`
   max-width: 980px;
@@ -27,8 +28,8 @@ export const Image = styled.img`
 
 export const Footer = styled.footer`
   flex: 1;
-  background: #fff;
-  border: 1px solid #eee;
+  background: ${props => props.theme.colors.backgroundFooter};
+  border: 1px solid ${props => props.theme.colors.borderFooter};
   padding: 15px 20px;
   text-align: left;
   border-radius: 0 0 5px 5px;
@@ -36,13 +37,13 @@ export const Footer = styled.footer`
 
 export const Strong = styled.strong`
   font-size: 16px;
-  color: #333;
+  color: ${props => props.theme.colors.textTitleFooter};
 `;
 
 export const Paragraph = styled.p`
   font-size: 14px;
   line-height: 20px;
-  color: #999;
+  color: ${props => props.theme.colors.textDescFooter};
   margin-top: 5px;
 `;
 

@@ -90,15 +90,23 @@ export default function Main({ match }) {
             {users.map(user => (
               <Line key={user._id}>
                 <Image src={user.avatar} alt="user.name" />
-                <Footer>
-                  <Strong>{user.name}</Strong>
-                  <Paragraph>{user.bio}</Paragraph>
+                <Footer theme={theme}>
+                  <Strong theme={theme}>{user.name}</Strong>
+                  <Paragraph theme={theme}>{user.bio}</Paragraph>
                 </Footer>
                 <Buttons>
-                  <Button type="button" onClick={() => handleDislike(user._id)}>
+                  <Button
+                    theme={theme}
+                    type="button"
+                    onClick={() => handleDislike(user._id)}
+                  >
                     <img src={dislike} alt="Dislike" />
                   </Button>
-                  <Button type="button" onClick={() => handleLike(user._id)}>
+                  <Button
+                    theme={theme}
+                    type="button"
+                    onClick={() => handleLike(user._id)}
+                  >
                     <img src={like} alt="Like" />
                   </Button>
                 </Buttons>
