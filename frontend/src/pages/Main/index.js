@@ -29,15 +29,13 @@ import itsamatch from "../../assets/itsamatch.png";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../../styles/global";
 import dark from "../../styles/themes/dark";
-import light from "../../styles/themes/light";
 import usePersistedState from "./../../utils/usePersistedState";
 
 export default function Main({ match }) {
   const [users, setUsers] = useState([]);
   const [matchDev, setMatchDev] = useState(null);
 
-  const [theme, setTheme] = usePersistedState("theme", dark);
-  const { colors, title } = theme;
+  const [theme] = usePersistedState("theme", dark);
 
   useEffect(() => {
     async function loadUser() {

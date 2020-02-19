@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ThemeContext } from "styled-components";
 
 export const MainContainer = styled.div`
   max-width: 980px;
