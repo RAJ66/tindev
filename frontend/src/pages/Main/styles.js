@@ -59,7 +59,7 @@ export const Button = styled.button`
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
   border: 0;
   border-radius: 4px;
-  background: #fff;
+  background: ${props => props.theme.colors.backgroundFooter};
   cursor: pointer;
   ::hover {
     transform: translateY(-5px);
