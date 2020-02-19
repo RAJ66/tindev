@@ -1,5 +1,5 @@
 <h1 align="center">
-  Tindev
+  <img alt="Tindev" src="tindev/src/assets/logo@3x.png">
 </h1>
 
 <p align="center">
