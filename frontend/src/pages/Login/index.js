@@ -19,7 +19,7 @@ export default function Login({ history }) {
   const [theme, setTheme] = usePersistedState("theme", dark);
   const { colors, title } = theme;
 
-  const toggleThme = () => {
+  const toggleTheme = () => {
     setTheme(title === "light" ? dark : light);
   };
 
@@ -46,7 +46,7 @@ export default function Login({ history }) {
           <Button type="submit">Enviar</Button>
           <DivSiwtch>
             <Switch
-              onChange={toggleThme}
+              onChange={toggleTheme}
               checked={true}
               checkedIcon={false}
               uncheckedIcon={false}
