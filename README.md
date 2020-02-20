@@ -18,6 +18,11 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
 </p>
 
+<div align="center">
+<img alt="dark" src="./img/dark.png" style="width: 40%;">
+<img alt="light" src="./img/light.png" style="width: 40%;margin-left:10px;">
+</div>
+
 <p>This project was made for study porpuses only.</p>
 <p>Social network for developers</p>
 <p>#Rocketseat Week Omnistack 8.0</p>
@@ -29,6 +34,7 @@
 - [React Native](https://facebook.github.io/react-native/)
 
 ## Backend
+
 ### To set up
 
 ```
